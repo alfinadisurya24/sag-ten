@@ -14,7 +14,7 @@
                 </div>
             <?php } ?>
             <div class="table-responsive">
-                <table class="table" id="my-tables">
+                <table class="table table-striped" id="my-tables">
                     <thead>
                         <tr>
                             <th class="text-center">#</th>
@@ -38,17 +38,17 @@
                             <td><?= $value->nama_project ?></td>
                             <td><?= tanggal_indo($value->tgl_project) ?></td>
                             <td><?= $value->engineer ?></td>
-                            <td><?= $value->komponen ?></td>
-                            <td><?= $value->tegangan ?></td>
-                            <td><?= $value->desain_tower ?></td>
-                            <td><?= $value->konduktor ?></td>
-                            <td><?= $value->tipe_konduktor ?></td>
+                            <td><?= $value->Komponen ?></td>
+                            <td><?= $value->Tegangan ?></td>
+                            <td><?= $value->DesainTower ?></td>
+                            <td><?= $value->Konduktor ?></td>
+                            <td><?= $value->TipeKonduktor ?></td>
                             <td>
                                 <a href="<?= base_url()?>main/proses/project/detail/<?=$value->id_project?>"
-                                    class="btn btn-success btn-sm detailData m-1" style="font-weight: 800;">Detail</a>
+                                    class="btn btn-success btn-sm detailData m-1 p-2" style="font-weight: 800;">Detail</a>
                                 <a href="<?= base_url()?>main/proses/project/update/<?=$value->id_project?>"
-                                    class="btn btn-info btn-sm editData m-1" style="font-weight: 800;">Update</a>
-                                <a class="btn btn-danger btn-sm m-1 deleteData" href="javascript:void(0);"
+                                    class="btn btn-info btn-sm editData m-1 p-2" style="font-weight: 800;">Update</a>
+                                <a class="btn btn-danger btn-sm m-1 p-2 deleteData" href="javascript:void(0);"
                                     onclick="deletes(<?= $value->id_project ?>);" style="font-weight: 800;">Delete</a>
                             </td>
                         </tr>

@@ -14,26 +14,40 @@ class Main extends CI_Controller {
 
     public function index($content = null)
 	{ 
-        switch ($content) {
-            case 'project':
-                $data = [
-                    'page'      => $content,
-                    'title'     => 'Project | Sag-ten',
-                    'header'    => 'Project',
-                    'dataProject'   => $this->General_m->select('project', [], 'result', 'nama_project', 'asc'),
-                    'section'   => 'content/project'
-                ];
-                break;
-            
-            default:
-                $data = [
-                    'title'     => 'Dashboard | Sag-ten',
-                    'header'    => 'Dashboard',
-                    'section'   => 'content/home'
-                ];
-                break;
+        if (!$this->session->userdata('authenticated_cms')){
+            $this->load->view('login');
+        }else {
+            switch ($content) {
+                case 'project':
+                    $data = [
+                        'page'      => $content,
+                        'title'     => 'Project | Sag-ten',
+                        'header'    => 'Project',
+                        'dataProject'   => $this->General_m->select('project', [], 'result', 'nama_project', 'asc'),
+                        'section'   => 'content/project'
+                    ];
+                    break;
+
+                case 'master_data':
+                    $data = [
+                        'page'      => $content,
+                        'title'     => 'Master Data | Sag-ten',
+                        'header'    => 'Master Data',
+                        'dataMaster'   => $this->General_m->select('master_data', [], 'result', 'Kodemstrdata', 'asc'),
+                        'section'   => 'content/master_data.php'
+                    ];
+                    break;
+                
+                default:
+                    $data = [
+                        'title'     => 'Dashboard | Sag-ten',
+                        'header'    => 'Dashboard',
+                        'section'   => 'content/home'
+                    ];
+                    break;
+            }
+            $this->load->view('main', $data);
         }
-        $this->load->view('main', $data);
     }
 
     /*
@@ -50,12 +64,11 @@ class Main extends CI_Controller {
                         $field->nama_project    = null;
                         $field->tgl_project     = null;
                         $field->engineer        = null;
-                        $field->komponen        = null;
-                        $field->tegangan        = null;
-                        $field->desain_tower    = null;
-                        $field->konduktor       = null;
-                        $field->tipe_konduktor  = null;
-                        // $field->role_id = null;
+                        $field->Komponen        = null;
+                        $field->Tegangan        = null;
+                        $field->DesainTower    = null;
+                        $field->Konduktor       = null;
+                        $field->TipeKonduktor  = null;
                 }else {
                     $field = $this->General_m->select('project', ['id_project' => $id], 'row');
                 }
@@ -64,6 +77,11 @@ class Main extends CI_Controller {
                     'title'     => 'Project | Monitoring Pekerjaan',
                     'header'     => ucfirst($action) .' Project',
                     'action'    => $action,
+                    'listKomponen'   => $this->General_m->select('master_data', ['Nama' => 'Komponen'], 'row'),
+                    'listTegangan'   => $this->General_m->select('master_data', ['Nama' => 'Tegangan'], 'row'),
+                    'listDesainTower'   => $this->General_m->select('master_data', ['Nama' => 'DesainTower'], 'row'),
+                    'listKonduktor'   => $this->General_m->select('master_data', ['Nama' => 'Konduktor'], 'row'),
+                    'listTipeKonduktor'   => $this->General_m->select('master_data', ['Nama' => 'Komponen'], 'row'),
                     'field'     => $field
                 ];
 
@@ -72,6 +90,37 @@ class Main extends CI_Controller {
                 } else {
                     $data['section'] = 'form/project';
                 }
+                
+            break;
+
+            case 'master_data':
+                if ($action == 'create') {
+                    $field = new stdClass();
+                        $field->Kodemstrdata        = null;
+                        $field->Nilai               = null;
+                        // $field->Deleted             = null;
+                        // $field->engineer        = null;
+                        // $field->Komponen        = null;
+                        // $field->Tegangan        = null;
+                        // $field->DesainTower    = null;
+                        // $field->Konduktor       = null;
+                        // $field->TipeKonduktor  = null;
+                }else {
+                    $field = $this->General_m->select('master_data', ['Kodemstrdata' => $id], 'row');
+                }
+                $data = [
+                    'page'      => $type,
+                    'title'     => 'Master Data | Monitoring Pekerjaan',
+                    'header'     => ucfirst($action) .' Master Data',
+                    'action'    => $action,
+                    'field'     => $field
+                ];
+
+                // if ($action == 'detail') {
+                //     $data['section'] = 'detail/project';
+                // } else {
+                    $data['section'] = 'form/master_data';
+                // }
                 
             break;
         }
@@ -91,12 +140,20 @@ class Main extends CI_Controller {
                     'nama_project'    => $this->input->post('nama_project'),
                     'tgl_project'     => $this->input->post('tgl_project'),
                     'engineer'            => $this->input->post('engineer'),
-                    'komponen'            => $this->input->post('komponen'),
-                    'tegangan'       => $this->input->post('tegangan'),
-                    'desain_tower'         => $this->input->post('desain_tower'),
-                    'konduktor'       => $this->input->post('konduktor'),
-                    'tipe_konduktor'         => $this->input->post('tipe_konduktor')
+                    'Komponen'            => $this->input->post('komponen'),
+                    'Tegangan'       => $this->input->post('tegangan'),
+                    'DesainTower'         => $this->input->post('desain_tower'),
+                    'Konduktor'       => $this->input->post('konduktor'),
+                    'TipeKonduktor'         => $this->input->post('tipe_konduktor'),
                 ];
+                
+                $dataMaster   = $this->General_m->select('master_data', [], 'result', 'Kodemstrdata', 'asc');
+                foreach ($dataMaster as $key => $value) {
+                    if ($key < 5) {
+                        continue;
+                    }
+                    $data[$value->Nama] =  empty($value->Nilai) ? null : $value->Nilai;
+                }
             break;
         }
 
@@ -129,11 +186,45 @@ class Main extends CI_Controller {
                     'nama_project'    => $this->input->post('nama_project'),
                     'tgl_project'     => $this->input->post('tgl_project'),
                     'engineer'            => $this->input->post('engineer'),
-                    'komponen'            => $this->input->post('komponen'),
-                    'tegangan'       => $this->input->post('tegangan'),
-                    'desain_tower'         => $this->input->post('desain_tower'),
-                    'konduktor'       => $this->input->post('konduktor'),
-                    'tipe_konduktor'         => $this->input->post('tipe_konduktor')
+                    'Komponen'            => $this->input->post('komponen'),
+                    'Tegangan'       => $this->input->post('tegangan'),
+                    'DesainTower'         => $this->input->post('desain_tower'),
+                    'Konduktor'       => $this->input->post('konduktor'),
+                    'TipeKonduktor'         => $this->input->post('tipe_konduktor'),
+                    'BasicSpan'            => $this->input->post('BasicSpan'),
+                    'RullingSpan'            => $this->input->post('RullingSpan'),
+                    'SegmenRullingSpan'       => $this->input->post('SegmenRullingSpan'),
+                    'HeightDifference'         => $this->input->post('HeightDifference'),
+                    'WindpressureMWT'       => $this->input->post('WindpressureMWT'),
+                    'WindPressureAtSagging'            => $this->input->post('WindPressureAtSagging'),
+                    'EverydaytemperatureEDT'            => $this->input->post('EverydaytemperatureEDT'),
+                    'MinimumTemperatureMWT'       => $this->input->post('MinimumTemperatureMWT'),
+                    'MaximumTemperatureMAXSAG'         => $this->input->post('MaximumTemperatureMAXSAG'),
+                    'Diameter'       => $this->input->post('Diameter'),
+                    'Weight'            => $this->input->post('Weight'),
+                    'KneePointTemperatureKPT'            => $this->input->post('KneePointTemperatureKPT'),
+                    'Total'       => $this->input->post('Total'),
+                    'Alumunium'         => $this->input->post('Alumunium'),
+                    'ElasticModulus'       => $this->input->post('ElasticModulus'),
+                    'ThermalExpansionCoeff'            => $this->input->post('ThermalExpansionCoeff'),
+                    'TemperatureAtSagging'            => $this->input->post('TemperatureAtSagging'),
+                    'MeasuredSagOfLowestSupport'       => $this->input->post('MeasuredSagOfLowestSupport'),
+                    'MaximumWorkingTension'         => $this->input->post('MaximumWorkingTension'),
+                    'BreakingStrength'       => $this->input->post('BreakingStrength')
+                ];
+            break;
+
+            case 'master_data':
+                $table = "master_data" ;
+                $where = ['Kodemstrdata' => $this->input->post('id')];
+                $data = [
+                    'Nilai'     => $this->input->post('Nilai'),
+                    'UpdatedOn'            => date('Y-m-d'),
+                    'UpdatedBy'            => $_SESSION['nama'],
+                    // 'Tegangan'       => $this->input->post('tegangan'),
+                    // 'DesainTower'         => $this->input->post('desain_tower'),
+                    // 'Konduktor'       => $this->input->post('konduktor'),
+                    // 'TipeKonduktor'         => $this->input->post('tipe_konduktor')
                 ];
             break;
         }
@@ -178,4 +269,60 @@ class Main extends CI_Controller {
         }
         redirect('main/index/'.$type.'');
     }
+
+    // 
+    // Login Action
+    //
+    public function login(){
+        $email      = $this->input->post('email');
+        $password   = $this->input->post('password');
+        
+        $user = $this->General_m->select("user", ['email' => $email], "row", null, null, null);
+
+        if (empty($user)) {
+            $this->session->set_flashdata('message', 'Email tidak ditemukan');
+        }else {
+            if (md5($password) == $user->password) {
+                $session = array(
+                    'authenticated_cms' => true,
+                    'id_user'           => $user->id_user,
+                    'email'             => $user->email,
+                    'nama'              => $user->nama
+                );
+                $this->session->set_userdata($session);
+            }else {
+                $this->session->set_flashdata('message', 'Password tidak sesuai');
+            }
+        }
+        redirect('/');
+        
+    }
+
+    // 
+    // Logout Action
+    //
+    public function logout(){
+        $this->session->sess_destroy();
+        $this->session->unset_userdata('authenticated_cms');
+        redirect('main'); 
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Action Delete Data
+    |--------------------------------------------------------------------------
+    */
+    // public function dataJson($type, $id = null){
+    //     switch ($type) {
+    //         case 'project':
+    //             $data = [
+    //                 'dataProject' => $this->General_m->select('project', ['id_project' => $id], 'result', 'nama_project', 'asc'),
+    //                 'dataMaster' => $this->General_m->select('data_master', [], 'result')
+    //             ];
+    //             break;
+    //     }
+
+    //     echo json_encode($data);
+    // }
+    
 }
