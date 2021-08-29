@@ -1,3 +1,11 @@
+<?php
+
+$ElasticModulus = $field->ElasticModulus;
+if (!empty($ElasticModulus) && $ElasticModulus != '') {
+    $ElasticModulus = explode('*', $ElasticModulus);
+}
+?>
+
 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
     <div class="card">
         <div class="card-body">
@@ -224,7 +232,7 @@
                                 <p>Elastic Modulus </p>
                             </div>
                             <div class="col-8 col-sm-8 col-md-8 col-lg-8">
-                                <p>= <span id="ElasticModulus"><?= $field->ElasticModulus ?></span> kg/m2</p>
+                                <p>= <span id="ElasticModulus"><?= floatval($ElasticModulus[0] * $ElasticModulus[1]) ?></span> kg/m2</p>
                             </div>
 
                             <div class="col-4 col-sm-4 col-md-4 col-lg-4">
@@ -242,7 +250,7 @@
                                 <p>Elastic Modulus </p>
                             </div>
                             <div class="col-8 col-sm-8 col-md-8 col-lg-8">
-                                <p>= <span id="ElasticModulus"><?= $field->ElasticModulus ?></span> kg/m2</p>
+                                <p>= <span id="ElasticModulus"><?= floatval($ElasticModulus[0] * $ElasticModulus[1]) ?></span> kg/m2</p>
                             </div>
 
                             <div class="col-4 col-sm-4 col-md-4 col-lg-4">
