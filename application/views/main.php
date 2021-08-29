@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="<?= base_url('vendors/ti-icons/css/themify-icons.css')?>">
     <link rel="stylesheet" href="<?= base_url('vendors/typicons/typicons.css')?>">
     <link rel="stylesheet" href="<?= base_url('vendors/simple-line-icons/css/simple-line-icons.css')?>">
-    <!-- <link rel="stylesheet" href="<?#= base_url('vendors/css/vendor.bundle.base.css')?>"> -->
+    <link rel="stylesheet" href="<?= base_url('vendors/css/vendor.bundle.base.css')?>">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- <link rel="stylesheet" href="<?#= base_url('vendors/datatables.net-bs4/dataTables.bootstrap4.css')?>"> -->
@@ -28,9 +28,9 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/af-2.3.5/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/cr-1.5.3/date-1.0.2/fc-3.3.2/fh-3.1.8/kt-2.6.1/r-2.2.7/rg-1.1.2/rr-1.2.7/sc-2.0.3/sb-1.0.1/sp-1.2.2/sl-1.3.2/datatables.min.js"></script>
     <!-- plugins:js -->
-    <!-- <script src="<?#= base_url('vendors/js/vendor.bundle.base.js')?>"></script> -->
+    <script src="<?= base_url('vendors/js/vendor.bundle.base.js')?>"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/af-2.3.5/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/cr-1.5.3/date-1.0.2/fc-3.3.2/fh-3.1.8/kt-2.6.1/r-2.2.7/rg-1.1.2/rr-1.2.7/sc-2.0.3/sb-1.0.1/sp-1.2.2/sl-1.3.2/datatables.min.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="<?= base_url('vendors/chart.js/Chart.min.js')?>"></script>

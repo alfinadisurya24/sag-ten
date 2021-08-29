@@ -13,6 +13,12 @@
                 <span class="menu-title">Project</span>
             </a>
         </li>
+        <li class="nav-item <?= $this->uri->segment('3') == 'master_data' ? 'active' : '' ?>">
+            <a class="nav-link" href="/main/index/master_data">
+                <i class="menu-icon mdi mdi-file"></i>
+                <span class="menu-title">Master Data</span>
+            </a>
+        </li>
         <!-- <li class="nav-item nav-category">UI Elements</li> -->
         <!-- <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"

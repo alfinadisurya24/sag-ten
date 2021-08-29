@@ -19,7 +19,7 @@
     <div class="navbar-menu-wrapper d-flex align-items-top border-bottom">
         <ul class="navbar-nav">
             <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-                <h1 class="welcome-text">Hello, <span class="text-black fw-bold">John Doe</span></h1>
+                <h1 class="welcome-text">Hello, <span class="text-black fw-bold"><?= ucfirst($_SESSION['nama']) ?></span></h1>
             </li>
         </ul>
         <ul class="navbar-nav ms-auto">
@@ -29,14 +29,17 @@
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                     <div class="dropdown-header text-center">
                         <i class="mdi mdi-36px mdi-account-circle"></i>
-                        <p class="mb-1 font-weight-semibold">Allen Moreno</p>
-                        <p class="fw-light text-muted mb-0">allenmoreno@gmail.com</p>
+                        <p class="mb-1 font-weight-semibold"><?= ucfirst($_SESSION['nama']) ?></p>
+                        <p class="fw-light text-muted mb-0"><?= $_SESSION['email'] ?></p>
                     </div>
                     <!-- <a class="dropdown-item"><i
                             class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile
                         <span class="badge badge-pill badge-danger">1</span></a> -->
-                    <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign
-                        Out</a>
+                    <?= form_open('main/logout')?>
+                        <button type="submit" class="dropdown-item">
+                            <i class="dropdown-item-icon mdi mdi-power text-danger me-2"></i> Sign Out
+                        </button>
+                    <?= form_close()?>
                 </div>
             </li>
         </ul>
